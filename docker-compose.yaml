@@ -1,0 +1,21 @@
+services:
+  tg-sms:
+    build: ./src
+    container_name: tg-sms-server
+    networks:
+      - sms_services
+    environment:
+      BOT_TOKEN: $BOT_TOKEN
+      CHAT_ID: $CHAT_ID
+      HTTP_SERVER_PORT: $HTTP_SERVER_PORT
+      DB_NAME: $DB_NAME
+      DB_USER: $DB_USER
+      DB_PASSWORD: $DB_PASSWORD
+      DB_HOST: $DB_HOST
+      DB_PORT: $DB_PORT
+    ports:
+      - "127.0.0.1:$HTTP_SERVER_PORT:$HTTP_SERVER_PORT"
+
+networks:
+  sms_services:
+    external: true
