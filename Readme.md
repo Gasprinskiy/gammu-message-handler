@@ -5,7 +5,7 @@ A Go application that receives SMS messages from a GSM modem via [Gammu SMSD](ht
 This repository contains only the **message handler** service.
 For a full setup you will also need:
 
-- 📦 [sms-database](https://github.com/Gasprinskiy/sms-database) — database schema and migrations
+- 📦 [gammu-mysql-db](https://github.com/Gasprinskiy/gammu-mysql-db) — database schema and migrations
 - 📦 [sms-smsd](https://github.com/Gasprinskiy/sms-smsd) — containerized Gammu SMSD service
 
 ---
@@ -24,7 +24,7 @@ For a full setup you will also need:
 - Docker and Docker Compose installed
 - A GSM modem with a working SIM card
 - Cloned repositories:
-  - [sms-database](https://github.com/Gasprinskiy/sms-database)
+  - [gammu-mysql-db](https://github.com/Gasprinskiy/gammu-mysql-db)
   - [sms-smsd](https://github.com/Gasprinskiy/sms-smsd)
   - [gammu-message-handler](https://github.com/Gasprinskiy/gammu-message-handler)
 
