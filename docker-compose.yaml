@@ -1,7 +1,7 @@
 services:
-  tg-sms:
+  gammu-message-handler:
     build: ./src
-    container_name: tg-sms-server
+    container_name: gammu-message-http-handler
     networks:
       - sms_services
     environment:
