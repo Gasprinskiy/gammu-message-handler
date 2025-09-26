@@ -5,8 +5,8 @@ services:
     networks:
       - sms_services
     environment:
-      BOT_TOKEN: $BOT_TOKEN
-      CHAT_ID: $CHAT_ID
+      TELEGRAM_BOT_TOKEN: $BOT_TOKEN
+      TELEGRAM_CHAT_ID: $CHAT_ID
       HTTP_SERVER_PORT: $HTTP_SERVER_PORT
       DB_NAME: $DB_NAME
       DB_USER: $DB_USER
