@@ -6,7 +6,9 @@ This repository contains only the **message handler** service.
 For a full setup you will also need:
 
 - 📦 [gammu-mysql-db](https://github.com/Gasprinskiy/gammu-mysql-db) — database schema and migrations
-- 📦 [sms-smsd](https://github.com/Gasprinskiy/sms-smsd) — containerized Gammu SMSD service
+- 📦 [gammu-smsd-container](https://github.com/Gasprinskiy/gammu-smsd-container) — containerized Gammu SMSD service
+
+Each repository contains its own **instructions for setup and running**, so please refer to them individually.
 
 ---
 
@@ -25,47 +27,41 @@ For a full setup you will also need:
 - A GSM modem with a working SIM card
 - Cloned repositories:
   - [gammu-mysql-db](https://github.com/Gasprinskiy/gammu-mysql-db)
-  - [sms-smsd](https://github.com/Gasprinskiy/sms-smsd)
+  - [gammu-smsd-container](https://github.com/Gasprinskiy/gammu-smsd-container)
   - [gammu-message-handler](https://github.com/Gasprinskiy/gammu-message-handler)
 
 ---
 
 ## Setup & Run
 
-1. **Create a `.env` file** in the root of this repository with the following variables:
 
-   ```env
-   DB_HOST=sms-db
-   DB_PORT=3306
-   DB_USER=smsuser
-   DB_PASSWORD=yourpassword
-   DB_NAME=smsdb
-
-   TELEGRAM_BOT_TOKEN=your_bot_token
-   TELEGRAM_CHAT_ID=your_chat_id
-````
-
-2. **Create a common Docker network** for all SMS services:
+1. **Create a common Docker network** for all SMS services, you can find a script in gammu-mysql-db repository or do it manually:
 
    ```bash
    docker network create sms_services
    ```
 
-3. **Start the SMSD service** (from the `sms-smsd` repository):
-
-   ```bash
-   ./start_docker.sh
-   ```
-
-   This will run Gammu SMSD inside a container and connect it to the `sms_services` network.
-
-4. **Start the database service** (from the `sms-database` repository):
-
-   ```bash
-   ./start_docker.sh
-   ```
-
+2. **Start the database service** (from the `gammu-mysql-db` repository):
+   Instructions are available in that repository.
    The DB container should also join the `sms_services` network.
+
+3. **Start the SMSD service** (from the `gammu-smsd-container` repository):
+   Instructions are available in that repository.
+   This will run Gammu SMSD inside a container and connect it to the `sms_services` network.
+   If you done it correctly you will have all incoming messages in `inbox` table.
+
+4. **Create a `.env` file** in the root of this repository with the following variables:
+
+   ```env
+   DB_HOST=gammu-mysql-db // it's a name of db service on docker compose file
+   DB_PORT=3306
+   DB_USER=yourdbuser
+   DB_PASSWORD=yourpassword
+   DB_NAME=yourdbname
+
+   TELEGRAM_BOT_TOKEN=your_bot_token
+   TELEGRAM_CHAT_ID=your_chat_id
+````
 
 5. **Finally, start the message handler** (from this repository):
 
@@ -80,8 +76,6 @@ For a full setup you will also need:
 ## Usage Flow
 
 1. An SMS arrives at the GSM modem.
-2. Gammu SMSD writes the message into the database.
+2. Gammu SMSD writes the message into the database and runs script that makes http request to this service.
 3. The handler reads new messages from the DB.
 4. The message is forwarded to the configured Telegram chat.
-
----

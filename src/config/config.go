@@ -23,8 +23,8 @@ func (c Config) DbConnectionString() string {
 
 func NewConfig() *Config {
 	return &Config{
-		BotToken:       os.Getenv("BOT_TOKEN"),
-		ChatID:         os.Getenv("CHAT_ID"),
+		BotToken:       os.Getenv("TELEGRAM_BOT_TOKEN"),
+		ChatID:         os.Getenv("TELEGRAM_CHAT_ID"),
 		HttpServerPort: fmt.Sprintf(":%s", os.Getenv("HTTP_SERVER_PORT")),
 		DbName:         os.Getenv("DB_NAME"),
 		DbPassword:     os.Getenv("DB_PASSWORD"),
