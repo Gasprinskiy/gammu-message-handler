@@ -61,7 +61,7 @@ Each repository contains its own **instructions for setup and running**, so plea
 
    TELEGRAM_BOT_TOKEN=your_bot_token
    TELEGRAM_CHAT_ID=your_chat_id
-````
+   ```
 
 5. **Finally, start the message handler** (from this repository):
 
